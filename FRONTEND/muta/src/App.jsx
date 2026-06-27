@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
 
@@ -37,7 +36,7 @@ const steps = (studentName) => [
 // ── Song Dedication Popup ─────────────────────────────────────────────────────
 function SongDedication({ onClose }) {
   const [typed, setTyped] = useState("");
-  const fullText = "Now close your eyes... and dedicate this song to Esther. 🎶";
+  const fullText = "Now close your eyes... and dedicate this song to Murisa. 🎶";
 
   useEffect(() => {
     let i = 0;
@@ -91,14 +90,14 @@ function SongDedication({ onClose }) {
           marginBottom: "1.8rem",
         }}>
           <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", letterSpacing: 2, textTransform: "uppercase", marginBottom: 10 }}>
-            A message for Esther
+            A message for Murisa
           </div>
           <p style={{
             fontSize: "1rem", color: "rgba(255,255,255,0.88)",
             lineHeight: 1.85, fontStyle: "italic", margin: 0,
             fontFamily: "'Playfair Display', Georgia, serif",
           }}>
-            "Esther, this song is playing for you.<br />
+            "Murisa, this song is playing for you.<br />
             From the moment I heard it, I knew it was yours.<br />
             <span style={{ color: "#f0c060", fontStyle: "normal", fontWeight: 600 }}>
               Let every note remind you how deeply you are loved
@@ -107,7 +106,7 @@ function SongDedication({ onClose }) {
             and every moment God gives us together."
           </p>
           <div style={{ marginTop: "1.2rem", fontSize: "0.85rem", color: "#9fe1cb", fontStyle: "italic" }}>
-            ✝️ "I am my beloved's and my beloved is mine." — Song of Solomon 6:3
+            Ref: "I am my beloved's and my beloved is mine." — Song of Solomon 6:3
           </div>
         </div>
 
@@ -116,7 +115,7 @@ function SongDedication({ onClose }) {
           fontSize: "0.9rem", color: "rgba(255,255,255,0.5)",
           marginBottom: "1.5rem", lineHeight: 1.6,
         }}>
-          Turn to Esther right now 👉 <span style={{ color: "#f0c060" }}>show her this screen</span> and let the music play for her. 💛
+          Turn to Murisa right now 👉 <span style={{ color: "#f0c060" }}>show her this screen</span> and let the music play for her. 💛
         </div>
 
         <button
@@ -181,7 +180,7 @@ function MusicButton({ audioRef, onDedicate }) {
           backdropFilter: "blur(10px)",
           boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
         }}>
-          {/* Dedicate to Esther button */}
+          {/* Dedicate to Murisa button */}
           <button
             onClick={onDedicate}
             style={{
@@ -195,7 +194,7 @@ function MusicButton({ audioRef, onDedicate }) {
             onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(240,192,96,0.2)")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(240,192,96,0.1)")}
           >
-            💌 Dedicate to Esther
+            💌 Dedicate to Murisa
           </button>
 
           <span style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: 1 }}>VOLUME</span>
@@ -341,16 +340,29 @@ function ThreeBackground() {
 }
 
 // ── Photo Card ────────────────────────────────────────────────────────────────
-function PhotoCard({ label, icon, photo, onUpload, height = 240 }) {
+function PhotoCard({ label, defaultImg, photo, onUpload, height = 240 }) {
   return (
-    <label className="photo-upload-card" style={{ flex: "1 1 200px", height, border: "1px dashed rgba(240,192,96,0.4)", borderRadius: 16, background: "rgba(255,255,255,0.03)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", cursor: "pointer", position: "relative", overflow: "hidden", transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)", boxShadow: "0 4px 20px rgba(0,0,0,0.2)" }}>
+    <label className="photo-upload-card" style={{ flex: "1 1 200px", height, border: "1px solid rgba(240,192,96,0.3)", borderRadius: 16, background: "rgba(255,255,255,0.03)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", cursor: "pointer", position: "relative", overflow: "hidden", transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)", boxShadow: "0 4px 20px rgba(0,0,0,0.2)" }}>
       <input type="file" accept="image/*" style={{ display: "none" }} onChange={onUpload} />
-      {photo ? <img src={photo} alt={label} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : (
-        <div style={{ padding: "1.5rem", textAlign: "center", zIndex: 2 }}>
-          <div style={{ fontSize: 32, marginBottom: 8 }}>{icon}</div>
-          <div style={{ fontSize: 13, color: "rgba(255,255,255,0.7)", fontFamily: "'Segoe UI',sans-serif", fontWeight: 500 }}>{label}</div>
+      
+      {/* Renders the uploaded photo if present, otherwise uses your beautiful background image asset */}
+      <img 
+        src={photo || defaultImg} 
+        alt={label} 
+        style={{ width: "100%", height: "100%", objectFit: "cover" }} 
+      />
+      
+      {/* Soft overlay banner at the bottom of the card indicating action */}
+      <div style={{
+        position: "absolute", bottom: 0, left: 0, right: 0,
+        background: "linear-gradient(transparent, rgba(0,0,0,0.85))",
+        padding: "16px 8px 10px 8px", textAlign: "center",
+        zIndex: 2
+      }}>
+        <div style={{ fontSize: 12, color: "rgba(255,255,255,0.85)", fontFamily: "'Segoe UI',sans-serif", fontWeight: 500, letterSpacing: "0.3px" }}>
+          {label}
         </div>
-      )}
+      </div>
     </label>
   );
 }
@@ -396,7 +408,7 @@ function FinalScreen({ onRestart, studentName, totalSteps, onDedicate }) {
       </div>
 
       <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(2.5rem,6vw,4.5rem)", fontWeight: 400, color: "#fff", margin: "0.5rem 0 1rem 0" }}>
-        Mutangana <span style={{ color: "#f0c060", fontFamily: "sans-serif", fontStyle: "italic", fontWeight: 300 }}>&</span> Esther
+        Mutangana <span style={{ color: "#f0c060", fontFamily: "sans-serif", fontStyle: "italic", fontWeight: 300 }}>&</span> Murisa
       </h1>
 
       <div style={{ display: "flex", alignItems: "center", maxWidth: 280, gap: 16, marginBottom: "2.5rem", width: "100%" }}>
@@ -406,23 +418,23 @@ function FinalScreen({ onRestart, studentName, totalSteps, onDedicate }) {
       </div>
 
       <div style={{ display: "flex", gap: "1.5rem", width: "100%", flexWrap: "wrap", alignItems: "center", marginBottom: "3rem" }}>
-        <PhotoCard label="Add photo of Mutangana" icon="🤵" photo={groomPic} onUpload={(e) => handleFileChange(e, setGroomPic, "groom_pic")} height={240} />
-        <PhotoCard label="Add a couple photo here" icon="🥂" photo={couplePic} onUpload={(e) => handleFileChange(e, setCouplePic, "couple_pic")} height={300} />
-        <PhotoCard label="Add photo of Esther" icon="👰‍♀️" photo={bridePic} onUpload={(e) => handleFileChange(e, setBridePic, "bride_pic")} height={240} />
+        <PhotoCard label="Mutangana" defaultImg="/male.png" photo={groomPic} onUpload={(e) => handleFileChange(e, setGroomPic, "groom_pic")} height={240} />
+        <PhotoCard label="Mutangana & Murisa" defaultImg="/both.png" photo={couplePic} onUpload={(e) => handleFileChange(e, setCouplePic, "couple_pic")} height={300} />
+        <PhotoCard label="Murisa" defaultImg="/female.png" photo={bridePic} onUpload={(e) => handleFileChange(e, setBridePic, "bride_pic")} height={240} />
       </div>
 
       <div style={{ background: "rgba(15,23,42,0.4)", border: "1px solid rgba(240,192,96,0.25)", borderRadius: 20, padding: "2rem", marginBottom: "1.5rem", backdropFilter: "blur(12px)", boxShadow: "0 10px 40px rgba(0,0,0,0.4)", width: "100%", boxSizing: "border-box" }}>
         <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.92)", lineHeight: 1.9, fontStyle: "italic", margin: 0 }}>
-          Teacher, you gave me more than code — you gave me{" "}
+          Teacher, you gave me more than code  you gave me{" "}
           <span style={{ color: "#f0c060", fontStyle: "normal", fontWeight: 600 }}>discipline, clarity, and a love for getting things right.</span>{" "}
           Today, as you write the most beautiful program of your life with{" "}
-          <span style={{ color: "#f0c060", fontStyle: "normal", fontWeight: 600 }}>Esther</span> by your side,
+          <span style={{ color: "#f0c060", fontStyle: "normal", fontWeight: 600 }}>Murisa</span> by your side,
           we pray your marriage is like the best code you ever wrote:{" "}
           <span style={{ color: "#f0c060", fontStyle: "normal", fontWeight: 600 }}>clean, purposeful, and built to last.</span>
           <br /><br />
           May the Lord who blessed the first wedding in Cana{" "}
           <span style={{ color: "#f0c060", fontStyle: "normal", fontWeight: 600 }}>bless yours abundantly.</span>{" "}
-          May your home be filled with His peace, laughter, and Sabbath rest — every week, together.
+          May your home be filled with His peace, laughter, and Sabbath rest  every week, together.
         </p>
         <p style={{ fontSize: ".85rem", color: "#9fe1cb", marginTop: "1.5rem", fontStyle: "italic", margin: "1.5rem 0 0 0" }}>
           ✝️ "Two are better than one… for if they fall, the one will lift up the other." — Eccl. 4:9–10
@@ -450,13 +462,13 @@ function FinalScreen({ onRestart, studentName, totalSteps, onDedicate }) {
             This song playing right now...
           </div>
           <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.85rem", lineHeight: 1.5 }}>
-            Mutangana — tap here to dedicate it to Esther. She deserves to hear it. 💛
+            Mutangana — tap here to dedicate it to Murisa. She deserves to hear it. 💛
           </div>
         </div>
         <div style={{ marginLeft: "auto", color: "#f0c060", fontSize: 20, flexShrink: 0 }}>›</div>
       </div>
 
-      <CodeBlock code={`// Devothe's wedding gift in code\nconst marriage = {\n  groom:  "Mutangana",\n  bride:  "Esther",\n  love:   Infinity,\n  faith:  "Adventist — strong",\n  bugs:   0\n};\n// May God compile this perfectly 🙏`} />
+      <CodeBlock code={`// Devothe's wedding gift in code\nconst marriage = {\n  groom:  "Mutangana",\n  bride:  "Murisa",\n  love:   Infinity,\n  faith:  "Adventist — strong",\n  bugs:   0\n};\n// May God compile this perfectly 🙏`} />
 
       <div style={{ fontSize: ".9rem", color: "rgba(255,255,255,0.4)", marginTop: "1rem", letterSpacing: "0.5px" }}>
         — with love from your student, {studentName} 🎓
@@ -498,10 +510,8 @@ export default function WeddingWish() {
         }
       `}</style>
 
-      {/*
-        🎵 MUSIC SETUP:
-        Place music.mp3 inside the /public folder of your project.
-        It will be available at /music.mp3 automatically.
+      {/* 🎵 Reminder: Remember to make sure 'male.png', 'female.png', 'both.png', 
+        and 'music.mp3' are all saved inside your project's /public folder!
       */}
       <audio ref={audioRef} src="/music.mp3" loop preload="auto" />
 
